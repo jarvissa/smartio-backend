@@ -10,18 +10,23 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(homeId: string, password: string) {
-    const user = await this.usersService.findOne(homeId);
+  async validateUser(username: string, password: string) {
+    const user = await this.usersService.findOne(username);
 
     if (user && (await compare(password, user.password))) {
-      return { id: user.id, homeId: user.homeId, roles: user.roles };
+      return { id: user.id, username: user.username, roles: user.roles };
     }
     return null;
   }
 
-  async login(user: { id: string; homeId: string; roles: string[] }) {
-    const payload = { sub: user.id, homeId: user.homeId, roles: user.roles };
+  async login(user: { id: string; username: string; roles: string[] }) {
+    const payload = {
+      sub: user.id,
+      username: user.username,
+      roles: user.roles,
+    };
     return {
+      ...user,
       accessToken: this.jwtService.sign(payload),
     };
   }

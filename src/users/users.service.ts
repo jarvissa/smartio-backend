@@ -14,7 +14,7 @@ export class UsersService {
     const password = await hash(createUserDto.password);
 
     const createdUser = new this.userModel({
-      homeId: createUserDto.homeId,
+      username: createUserDto.username,
       password,
       roles: [Role.User],
     });
@@ -22,7 +22,7 @@ export class UsersService {
     return createdUser.save();
   }
 
-  async findOne(homeId: string) {
-    return this.userModel.findOne({ homeId }).exec();
+  async findOne(username: string) {
+    return this.userModel.findOne({ username }).exec();
   }
 }
