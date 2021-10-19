@@ -16,6 +16,7 @@ export class AuthService {
     if (user && (await compare(password, user.password))) {
       return { id: user.id, username: user.username, roles: user.roles };
     }
+
     return null;
   }
 
@@ -25,6 +26,7 @@ export class AuthService {
       username: user.username,
       roles: user.roles,
     };
+
     return {
       ...user,
       accessToken: this.jwtService.sign(payload),

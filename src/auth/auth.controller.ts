@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import {
   Body,
   Controller,
@@ -7,12 +8,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { UsersService } from 'src/users/users.service';
-import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 import { Role } from './role.enum';
 import { Roles } from './roles.decorator';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')
 export class AuthController {
